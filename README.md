@@ -1,5 +1,5 @@
 # bghands.github.io
-Auxiliary Service Organization
+Human Infomation Auxiliary Service | 信息辅助服务
 
 ## 赞助
 
