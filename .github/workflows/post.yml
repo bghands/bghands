@@ -49,6 +49,8 @@ jobs:
 
     env:
       GEMS_PATH: ~/vendor/bundle
+    
+    steps:
       - name: Deploy
         run: |
           if [[ -n $BASE_URL ]]; then
