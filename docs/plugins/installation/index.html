@@ -12,25 +12,25 @@
   <link rel="stylesheet" href="/css/screen.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Pages | Jekyll • Simple, blog-aware, static sites</title>
+<title>Plugins | Jekyll • Simple, blog-aware, static sites</title>
 <meta name="generator" content="Jekyll v4.2.2" />
-<meta property="og:title" content="Pages" />
+<meta property="og:title" content="Plugins" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Pages are the most basic building block for content. They’re useful for standalone content (content which is not date based or is not a group of content such as staff members or recipes)." />
-<meta property="og:description" content="Pages are the most basic building block for content. They’re useful for standalone content (content which is not date based or is not a group of content such as staff members or recipes)." />
-<link rel="canonical" href="https://jekyllrb.com/docs/pages/" />
-<meta property="og:url" content="https://jekyllrb.com/docs/pages/" />
+<meta name="description" content="Jekyll has built-in support for using plugins to extend the core functionality." />
+<meta property="og:description" content="Jekyll has built-in support for using plugins to extend the core functionality." />
+<link rel="canonical" href="https://jekyllrb.com/docs/plugins/installation/" />
+<meta property="og:url" content="https://jekyllrb.com/docs/plugins/installation/" />
 <meta property="og:site_name" content="Jekyll • Simple, blog-aware, static sites" />
 <meta property="og:image" content="https://jekyllrb.com/img/jekyll-og.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-09-16T12:12:28-07:00" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta property="twitter:image" content="https://jekyllrb.com/img/jekyll-og.png" />
-<meta property="twitter:title" content="Pages" />
+<meta property="twitter:title" content="Plugins" />
 <meta name="twitter:site" content="@jekyllrb" />
 <meta name="google-site-verification" content="onQcXpAvtHBrUI5LlroHNE_FP0b2qvFyPq7VZw36iEY" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-09-16T12:12:28-07:00","datePublished":"2022-09-16T12:12:28-07:00","description":"Pages are the most basic building block for content. They’re useful for standalone content (content which is not date based or is not a group of content such as staff members or recipes).","headline":"Pages","image":"https://jekyllrb.com/img/jekyll-og.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://jekyllrb.com/docs/pages/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://jekyllrb.com/img/logo-2x.png"}},"url":"https://jekyllrb.com/docs/pages/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-09-16T12:12:28-07:00","datePublished":"2022-09-16T12:12:28-07:00","description":"Jekyll has built-in support for using plugins to extend the core functionality.","headline":"Plugins","image":"https://jekyllrb.com/img/jekyll-og.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://jekyllrb.com/docs/plugins/installation/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://jekyllrb.com/img/logo-2x.png"}},"url":"https://jekyllrb.com/docs/plugins/installation/"}</script>
 <!-- End Jekyll SEO tag -->
 
   <!--[if lt IE 9]>
@@ -156,44 +156,127 @@
 <div class="unit four-fifths">
       <article>
         <div class="improve right hide-on-mobiles">
-          <a data-proofer-ignore href="https://github.com/jekyll/jekyll/edit/master/docs/_docs/pages.md"><i
+          <a data-proofer-ignore href="https://github.com/jekyll/jekyll/edit/master/docs/_docs/plugins/installation.md"><i
              class="fa fa-pencil"></i> &nbsp;Improve this page</a>
         </div>
-        <h1>Pages</h1>
-        <p>Pages are the most basic building block for content. They’re useful for standalone
-content (content which is not date based or is not a group of content such as staff
-members or recipes).</p>
+        <h1>Plugins</h1>
+        <p>Jekyll has built-in support for using plugins to extend the core functionality.</p>
 
-<p>The simplest way of adding a page is to add an HTML file in the root
-directory with a suitable filename. You can also write a page in Markdown using
-a <code class="language-plaintext highlighter-rouge">.md</code> extension which converts to HTML on build. For a site with
-a homepage, an about page, and a contact page, here’s what the root directory
-and associated URLs might look like:</p>
+<p>Primarily, any file with extension <code class="language-plaintext highlighter-rouge">.rb</code> placed within a <code class="language-plaintext highlighter-rouge">_plugins</code> directory at the root of the site’s <code class="language-plaintext highlighter-rouge">source</code>, will be automatically loaded
+during a build session.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
-├── about.md    # =&gt; http://example.com/about.html
-├── index.html    # =&gt; http://example.com/
-└── contact.html  # =&gt; http://example.com/contact.html
+<p>This behavior can be configured as follows:</p>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">_plugins</code> directory may be changed either directly via the command-line or via the configuration file(s).</li>
+  <li>Plugins in the <code class="language-plaintext highlighter-rouge">_plugins</code> directory (or its equivalent(s)) will not be loaded when Jekyll is running in <code class="language-plaintext highlighter-rouge">safe</code> mode.</li>
+  <li>This route cannot be used to extend the Jekyll CLI.</li>
+</ul>
+
+<p>To work with plugins packaged as gems, one has to list the desired gems in the configuration file under a top-level key named <code class="language-plaintext highlighter-rouge">plugins</code>.
+Additionally, if you’re building in <code class="language-plaintext highlighter-rouge">safe</code> mode, the gem needs to be listed under a top-level key named <code class="language-plaintext highlighter-rouge">whitelist</code>. For example:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">plugins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jekyll-gist</span>
+  <span class="pi">-</span> <span class="s">jekyll-coffeescript</span>
+  <span class="pi">-</span> <span class="s">jekyll-seo-tag</span>
+  <span class="pi">-</span> <span class="s">some-other-jekyll-plugin</span>
+
+<span class="c1"># Enable safe mode</span>
+<span class="na">safe</span><span class="pi">:</span> <span class="no">true</span>
+
+<span class="c1"># Whitelist plugins under safe mode.</span>
+<span class="c1"># Note that `some-other-jekyll-plugin` is not listed here. Therefore,</span>
+<span class="c1"># it will not be loaded under safe mode.</span>
+<span class="na">whitelist</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jekyll-gist</span>
+  <span class="pi">-</span> <span class="s">jekyll-coffeescript</span>
+  <span class="pi">-</span> <span class="s">jekyll-seo-tag</span>
 </code></pre></div></div>
 
-<p>If you have a lot of pages, you can organize them into subfolders. The same subfolders that are used to group your pages in your project’s source will then exist in the <code class="language-plaintext highlighter-rouge">_site</code> folder when your site builds. However, when a page has a <em>different</em> permalink set in the front matter, the subfolder at <code class="language-plaintext highlighter-rouge">_site</code> changes accordingly.</p>
+<p>In the absence of a Gemfile, one must manually ensure that listed plugins have been installed prior to invoking Jekyll. For example, the
+latest versions of gems in the above list may be installed to a system-wide location by running:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
-├── about.md          # =&gt; http://example.com/about.html
-├── documentation     # folder containing pages
-│   └── doc1.md       # =&gt; http://example.com/documentation/doc1.html
-├── design            # folder containing pages
-│   └── draft.md      # =&gt; http://example.com/design/draft.html
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem <span class="nb">install </span>jekyll-gist jekyll-coffeescript jekyll-remote-theme some-other-jekyll-plugin
 </code></pre></div></div>
 
-<h2 id="changing-the-output-url">Changing the output URL</h2>
+<h2 id="using-a-gemfile">Using a Gemfile</h2>
 
-<p>You might want to have a particular folder structure for your source files that changes for the built site. With <a href="/docs/permalinks/">permalinks</a> you have full control of the output URL.</p>
+<p>The maintenance of various gem dependencies may be greatly simplified by using a Gemfile (usually at the root of the site’s source) in
+conjunction with a Rubygem named <code class="language-plaintext highlighter-rouge">bundler</code>. The Gemfile however <strong>should</strong> list all the primary dependencies of your site, including Jekyll
+itself, not just gem-based plugins of the site because Bundler narrows the scope of installed gems to just <em>runtime dependencies</em> resolved by
+evaluating the Gemfile. For example:</p>
 
-<h2 id="excerpts-for-pages">Excerpts for pages</h2>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span> <span class="s2">"https://rubygems.org"</span>
 
-<p>From Jekyll 4.1.1 onwards, one can <em>choose</em> to generate excerpts for their pages by setting <code class="language-plaintext highlighter-rouge">page_excerpts</code> to <code class="language-plaintext highlighter-rouge">true</code> in their
-config file.</p>
+<span class="c1"># Use the latest version.</span>
+<span class="n">gem</span> <span class="s2">"jekyll"</span>
+
+<span class="c1"># The theme of current site, locked to a certain version.</span>
+<span class="n">gem</span> <span class="s2">"minima"</span><span class="p">,</span> <span class="s2">"2.4.1"</span>
+
+<span class="c1"># Plugins of this site loaded during a build with proper</span>
+<span class="c1"># site configuration.</span>
+<span class="n">gem</span> <span class="s2">"jekyll-gist"</span>
+<span class="n">gem</span> <span class="s2">"jekyll-coffeescript"</span>
+<span class="n">gem</span> <span class="s2">"jekyll-seo-tag"</span><span class="p">,</span> <span class="s2">"~&gt; 1.5"</span>
+<span class="n">gem</span> <span class="s2">"some-other-jekyll-plugin"</span>
+
+<span class="c1"># A dependency of a custom-plugin inside `_plugins` directory.</span>
+<span class="n">gem</span> <span class="s2">"nokogiri"</span><span class="p">,</span> <span class="s2">"~&gt; 1.11"</span>
+</code></pre></div></div>
+
+<p>The gems listed in the Gemfile can be collectively installed by simply running <code class="language-plaintext highlighter-rouge">bundle install</code>.</p>
+
+<h3 id="the-jekyll_plugins-group">The <code class="language-plaintext highlighter-rouge">:jekyll_plugins</code> Gemfile group</h3>
+
+<p>Jekyll gives a special treatment to gems listed as part of the <code class="language-plaintext highlighter-rouge">:jekyll_plugins</code> group in a Gemfile. Any gem under this group is loaded at
+the very beginning of any Jekyll process, irrespective of the <code class="language-plaintext highlighter-rouge">--safe</code> CLI flag or entries in the configuration file(s).</p>
+
+<p>While this route allows one to enhance Jekyll’s CLI with additional subcommands and options, or avoid having to list gems in the configuration
+file, the downside is the necessity to be mindful of what gems are included in the group. For example:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span> <span class="s2">"https://rubygems.org"</span>
+
+<span class="c1"># Use the latest version.</span>
+<span class="n">gem</span> <span class="s2">"jekyll"</span>
+
+<span class="c1"># The theme of current site, locked to a certain version.</span>
+<span class="n">gem</span> <span class="s2">"minima"</span><span class="p">,</span> <span class="s2">"2.4.1"</span>
+
+<span class="c1"># Plugins of this site loaded only if configured correctly.</span>
+<span class="n">gem</span> <span class="s2">"jekyll-gist"</span>
+<span class="n">gem</span> <span class="s2">"jekyll-coffeescript"</span>
+
+<span class="c1"># Gems loaded irrespective of site configuration.</span>
+<span class="n">group</span> <span class="ss">:jekyll_plugins</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s2">"jekyll-cli-plus"</span>
+  <span class="n">gem</span> <span class="s2">"jekyll-seo-tag"</span><span class="p">,</span> <span class="s2">"~&gt; 1.5"</span>
+  <span class="n">gem</span> <span class="s2">"some-other-jekyll-plugin"</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<div class="note info">
+  <h5>Plugins on GitHub Pages</h5>
+  <p>
+    <a href="https://pages.github.com/">GitHub Pages</a> is powered by Jekyll. All GitHub Pages sites are generated using the
+    <code>--safe</code> option to disable plugins (with the exception of some
+    <a href="https://pages.github.com/versions">whitelisted plugins</a>) for security reasons. Unfortunately, this means your plugins won't
+    work if you’re deploying via GitHub Pages.<br /><br />
+    You can still use GitHub Pages to publish your site, but you’ll need to build the site locally and push the generated files to your
+    GitHub repository instead of the Jekyll source files.
+  </p>
+</div>
+
+<div class="note">
+  <h5>
+    <code>_plugins</code>, <code>_config.yml</code> and <code>Gemfile</code> can be used simultaneously
+  </h5>
+  <p>
+    You may use any of the aforementioned plugin routes simultaneously in the same site if you so choose.
+    Use of one does not restrict the use of the others.
+  </p>
+</div>
 
       </article>
     </div>
@@ -215,7 +298,7 @@ config file.</p>
       </ul>
     <h4>Content</h4>
       <ul>
-        <li class="current"><a href="/docs/pages/">Pages</a></li>
+        <li><a href="/docs/pages/">Pages</a></li>
         <li><a href="/docs/posts/">Posts</a></li>
         <li><a href="/docs/front-matter/">Front Matter</a></li>
         <li><a href="/docs/collections/">Collections</a></li>
