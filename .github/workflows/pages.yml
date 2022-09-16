@@ -54,28 +54,14 @@ jobs:
         with:
           path: docs/_site/
           
-  continuous-delivery:
-
-    runs-on: ubuntu-latest
-
-    env:
-      GEMS_PATH: ~/vendor/bundle
-      - name: Deploy
-        run: |
-          if [[ -n $BASE_URL ]]; then
-            mv _site$BASE_URL _site-rename
-            rm -rf _site
-            mv _site-rename _site
-          fi
-          bash tools/deploy.sh
   # Deployment job
-  # deploy:
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v1
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
