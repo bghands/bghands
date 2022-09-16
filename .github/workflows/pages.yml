@@ -10,6 +10,10 @@ on:
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+
+env:
+  RUBY_VERSION: 2.7
+  
 permissions:
   contents: read
   pages: write
@@ -30,10 +34,21 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
+      - uses: ruby/setup-ruby@v1
         with:
-          source: ./
-          destination: ./_site
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+      # - name: Clone target branch
+      #   run: |
+      #     REMOTE_BRANCH="${REMOTE_BRANCH:-gh-pages}"
+      #     REMOTE_REPO="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+
+      #     echo "Publishing to ${GITHUB_REPOSITORY} on branch ${REMOTE_BRANCH}"
+      #     rm -rf docs/_site/
+      #     git clone --depth=1 --branch="${REMOTE_BRANCH}" --single-branch --no-checkout \
+      #       "${REMOTE_REPO}" docs/_site/
+      - name: Build site
+        run: bundle exec jekyll build --source docs --destination docs/_site --verbose --trace
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
 
