@@ -3,7 +3,7 @@ name: Build and deploy Jekyll documentation site
 on:
   push:
     branches:
-      - main
+      - page
 
 env:
   RUBY_VERSION: 2.7
