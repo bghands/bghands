@@ -1,49 +1,62 @@
-name: Build and deploy Jekyll documentation site
-
+name: 'Automatic build'
 on:
   push:
     branches:
       - master
-
-env:
-  RUBY_VERSION: 2.7
+    paths-ignore:
+      - .gitignore
+      - README.md
+      - LICENSE
 
 jobs:
-  deploy_docs:
-    if: "!contains(github.event.commits[0].message, '[ci skip]')"
-    runs-on: 'ubuntu-latest'
+  continuous-delivery:
+
+    runs-on: ubuntu-latest
+
     env:
-      BUNDLE_PATH: "vendor/bundle"
-      BUNDLE_JOBS: 4
-      BUNDLE_RETRY: 3
+      GEMS_PATH: ~/vendor/bundle
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: ruby/setup-ruby@v1
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
-          ruby-version: ${{ env.RUBY_VERSION }}
-          bundler-cache: true
-      - name: Clone target branch
+          fetch-depth: 0  # for posts's lastmod
+
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+
+      - name: Bundle Caching
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.GEMS_PATH }}
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Bundle Install
         run: |
-          REMOTE_BRANCH="${REMOTE_BRANCH:-gh-pages}"
-          REMOTE_REPO="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
-          echo "Publishing to ${GITHUB_REPOSITORY} on branch ${REMOTE_BRANCH}"
-          rm -rf docs/_site/
-          git clone --depth=1 --branch="${REMOTE_BRANCH}" --single-branch --no-checkout \
-            "${REMOTE_REPO}" docs/_site/
-      - name: Build site
-        run: bundle exec jekyll build --source docs --destination docs/_site --verbose --trace
+          bundle config path ${{ env.GEMS_PATH }}
+          bundle install --jobs 4 --retry 3
+      - name: Check baseurl
+        run: |
+          baseurl="$(grep '^baseurl:' _config.yml | sed "s/.*: *//;s/['\"]//g;s/#.*//")"
+          if [[ -n $baseurl ]]; then
+            echo "BASE_URL=$baseurl" >> $GITHUB_ENV
+          fi
+      - name: Build Site
         env:
-          # For jekyll-github-metadata
-          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Deploy to GitHub Pages
+          JEKYLL_ENV: production
         run: |
-          SOURCE_COMMIT="$(git log -1 --pretty="%an: %B" "$GITHUB_SHA")"
-          pushd docs/_site &>/dev/null
-          : > .nojekyll
-          git add --all
-          git -c user.name="${GITHUB_ACTOR}" -c user.email="${GITHUB_ACTOR}@users.noreply.github.com" \
-            commit --quiet \
-            --message "Deploy docs from ${GITHUB_SHA}" \
-            --message "$SOURCE_COMMIT"
-          git push
-          popd &>/dev/null
+          bundle exec jekyll build --source docs --destination docs/_site --verbose --trace 
+      - name: Test Site
+        run: |
+          bash tools/test.sh
+      - name: Deploy
+        run: |
+          if [[ -n $BASE_URL ]]; then
+            mv _site$BASE_URL _site-rename
+            rm -rf _site
+            mv _site-rename _site
+          fi
+          bash tools/deploy.sh
