@@ -53,7 +53,13 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: docs/_site/
+          
+  continuous-delivery:
 
+    runs-on: ubuntu-latest
+
+    env:
+      GEMS_PATH: ~/vendor/bundle
       - name: Deploy
         run: |
           if [[ -n $BASE_URL ]]; then
