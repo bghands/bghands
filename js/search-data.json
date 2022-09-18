@@ -1,7 +1,7 @@
 {"0": {
     "doc": "JekyllConf",
     "title": "Featured",
-    "content": "Jekyll 3 and Beyond - Parker Moore . ",
+    "content": "Jekyll Codex - Jekyll for front-end developers - Joost van der Schee . ",
     "url": "/jekyllconf/#featured",
     "relUrl": "/jekyllconf/#featured"
   },"1": {
@@ -29,23 +29,23 @@
     "url": "/jekyllconf/",
     "relUrl": "/jekyllconf/"
   },"5": {
-    "doc": "News",
+    "doc": "Things",
     "title": "\n    上帝之手 发表\n  ",
     "content": "release 13 Sep 2022 bghand 上帝之手（bghands）在2022年9月发声，此处开始为记录事件，提供信息辅助服务，为提高人们生活质量而生。 . ",
-    "url": "/news/",
-    "relUrl": "/news/"
+    "url": "/things/",
+    "relUrl": "/things/"
   },"6": {
-    "doc": "News",
+    "doc": "Things",
     "title": "website",
     "content": "网站 bghands.github.io 2022年 Jun . Previous Page: of Next ",
-    "url": "/news/#website",
-    "relUrl": "/news/#website"
+    "url": "/things/#website",
+    "relUrl": "/things/#website"
   },"7": {
-    "doc": "News",
-    "title": "News",
+    "doc": "Things",
+    "title": "Things",
     "content": " ",
-    "url": "/news/",
-    "relUrl": "/news/"
+    "url": "/things/",
+    "relUrl": "/things/"
   },"8": {
     "doc": "Philosophy",
     "title": "1. No Magic",
@@ -86,20 +86,20 @@
     "doc": "Releases",
     "title": "\n    上帝之手 发表\n  ",
     "content": "release 13 Sep 2022 bghand 上帝之手（bghands）在2022年9月发声，此处开始为记录事件，提供信息辅助服务，为提高人们生活质量而生。 . ",
-    "url": "/news/releases/",
-    "relUrl": "/news/releases/"
+    "url": "/things/releases/",
+    "relUrl": "/things/releases/"
   },"15": {
     "doc": "Releases",
     "title": "website",
     "content": "网站 bghands.github.io 2022年 Jun . ",
-    "url": "/news/releases/#website",
-    "relUrl": "/news/releases/#website"
+    "url": "/things/releases/#website",
+    "relUrl": "/things/releases/#website"
   },"16": {
     "doc": "Releases",
     "title": "Releases",
     "content": " ",
-    "url": "/news/releases/",
-    "relUrl": "/news/releases/"
+    "url": "/things/releases/",
+    "relUrl": "/things/releases/"
   },"17": {
     "doc": "Resources",
     "title": "Themes",
@@ -212,14 +212,14 @@
     "doc": "上帝之手 发表",
     "title": "website",
     "content": "网站 bghands.github.io 2022年 Jun . ",
-    "url": "/news/2022/09/13/bghand-statement/#website",
-    "relUrl": "/news/2022/09/13/bghand-statement/#website"
+    "url": "/things/2022/09/13/bghand-statement/#website",
+    "relUrl": "/things/2022/09/13/bghand-statement/#website"
   },"36": {
     "doc": "上帝之手 发表",
     "title": "上帝之手 发表",
     "content": "上帝之手（bghands）在2022年9月发声，此处开始为记录事件，提供信息辅助服务，为提高人们生活质量而生。 . ",
-    "url": "/news/2022/09/13/bghand-statement/",
-    "relUrl": "/news/2022/09/13/bghand-statement/"
+    "url": "/things/2022/09/13/bghand-statement/",
+    "relUrl": "/things/2022/09/13/bghand-statement/"
   },"37": {
     "doc": "Navigation",
     "title": "Scenario 1: Basic List",
