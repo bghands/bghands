@@ -4,12 +4,6 @@
 - title: Docs
   link: /docs/
   show_on_mobile: true
-- title: Resources
-  link: /resources/
-  show_on_mobile: true
-- title: Showcase
-  link: /showcase/
-  show_on_mobile: false
-- title: News
-  link: /news/
+- title: Things
+  link: /things/
   show_on_mobile: true
