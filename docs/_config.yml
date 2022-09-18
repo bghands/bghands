@@ -7,7 +7,7 @@ repository: https://github.com/jekyll/jekyll
 timezone: America/Los_Angeles
 twitter:
   username: jekyllrb
-logo: "/img/logo-2x.png"
+logo: "/img/logo-tree.png"
 google_site_verification: onQcXpAvtHBrUI5LlroHNE_FP0b2qvFyPq7VZw36iEY
 cloudinary_url: https://res.cloudinary.com/jekyll/image/upload/f_auto,q_auto,w_404
 collections:
